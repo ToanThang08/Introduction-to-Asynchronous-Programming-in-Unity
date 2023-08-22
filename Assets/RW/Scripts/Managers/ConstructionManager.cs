@@ -45,6 +45,17 @@ namespace RayWenderlich.WenderlichTopia
             return 100;
         }
 
+        private async Task<int> BuildHousePartAsync(HouseBuildProperties houseBuildProperties, GameObject housePartPrefab, Vector3 buildPosition)
+        {
+            var constructionTime = houseBuildProperties.GetConstructionTime();
+            await Task.Delay(constructionTime);
+
+            Instantiate(housePartPrefab, buildPosition, Quaternion.identity, levelGeometryContainer);
+            var taskCost = constructionTime * houseBuildProperties.wage;
+            return taskCost;
+
+        }
+
 
         private void Update()
         {
